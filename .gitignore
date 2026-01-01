@@ -1,0 +1,11 @@
+/venv/
+/.idea/
+.idea
+/_pychae_/
+__pycache__/
+ExclGraph/assets/temp.xlsx
+/ExclGraph/assets/temp.xlsx
+Top_Assets/Log.txt
+/Top_Assets/Log.txt
+*Log.txt
+/CheatSheet/assets/pngfiles/
