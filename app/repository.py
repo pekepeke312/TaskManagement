@@ -55,8 +55,8 @@ class ExcelTaskRepository:
         df[TaskSchema.COL_PARENT] = df[TaskSchema.COL_PARENT].fillna("").astype(str).str.strip()
         df[TaskSchema.COL_CATEGORY] = df[TaskSchema.COL_CATEGORY].fillna("Uncategorized").astype(str).str.strip()
 
-        df[TaskSchema.COL_START] = pd.to_datetime(df[TaskSchema.COL_START], errors="coerce").dt.normalize()
-        df[TaskSchema.COL_END] = pd.to_datetime(df[TaskSchema.COL_END], errors="coerce").dt.normalize()
+        df[TaskSchema.COL_START] = pd.to_datetime(df[TaskSchema.COL_START], errors="coerce")
+        df[TaskSchema.COL_END] = pd.to_datetime(df[TaskSchema.COL_END], errors="coerce")
 
         df[TaskSchema.COL_PROGRESS] = (
             pd.to_numeric(df[TaskSchema.COL_PROGRESS], errors="coerce")

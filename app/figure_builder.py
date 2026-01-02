@@ -41,8 +41,8 @@ class GanttFigureBuilder:
 
     def build(self, df_in: pd.DataFrame) -> go.Figure:
         df = df_in.copy()
-        df[TaskSchema.COL_START] = pd.to_datetime(df[TaskSchema.COL_START], errors="coerce").dt.normalize()
-        df[TaskSchema.COL_END] = pd.to_datetime(df[TaskSchema.COL_END], errors="coerce").dt.normalize()
+        df[TaskSchema.COL_START] = pd.to_datetime(df[TaskSchema.COL_START], errors="coerce")
+        df[TaskSchema.COL_END] = pd.to_datetime(df[TaskSchema.COL_END], errors="coerce")
 
         df_chart = df.dropna(subset=[TaskSchema.COL_START, TaskSchema.COL_END]).copy()
         df_chart = self.dep.add_blocked(df_chart)
@@ -86,7 +86,7 @@ class GanttFigureBuilder:
             fig.add_traces(fig_done.data)
 
         fig.update_yaxes(type="category", autorange="reversed")
-        fig.update_xaxes(tickformat="%Y-%m-%d", type="date")
+        fig.update_xaxes(tickformat="%Y-%m-%d\n%H:%M", type="date")
         fig.update_layout(
             title=UI["title_gantt_full"],
             height=max(520, 28 * max(len(df_chart), 1) + 240),
