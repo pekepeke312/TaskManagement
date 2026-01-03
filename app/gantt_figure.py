@@ -5,6 +5,8 @@ from typing import List, Tuple, Dict, Any
 
 import numpy as np
 import pandas as pd
+from datetime import datetime
+
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -308,5 +310,40 @@ class GanttFigureBuilder:
                 legendgrouptitle=dict(text="Status"),
             )
         )
+
+        # -------------------------
+        # Current time (NOW) vertical line  ※add_shape版（安全）
+        # -------------------------
+        if not df_chart.empty:
+            now_ts = pd.Timestamp.now()
+            xmin_ts = pd.to_datetime(df_chart[TaskSchema.COL_START].min())
+            xmax_ts = pd.to_datetime(df_chart[TaskSchema.COL_END].max())
+
+            if pd.notna(xmin_ts) and pd.notna(xmax_ts) and (xmin_ts <= now_ts <= xmax_ts):
+                x_now = now_ts.to_pydatetime()  # datetime.datetime
+
+                # 縦線（y方向はプロット全体=paper 0..1）
+                fig.add_shape(
+                    type="line",
+                    x0=x_now, x1=x_now,
+                    y0=0, y1=1,
+                    xref="x",
+                    yref="paper",
+                    line=dict(color="red", width=2),
+                    opacity=0.8,
+                    layer="above",
+                )
+
+                # ラベルが欲しければ annotation を別で追加（これなら安全）
+                fig.add_annotation(
+                    x=x_now,
+                    y=1,
+                    xref="x",
+                    yref="paper",
+                    text="NOW",
+                    showarrow=False,
+                    font=dict(color="red"),
+                    yanchor="bottom",
+                )
 
         return fig
