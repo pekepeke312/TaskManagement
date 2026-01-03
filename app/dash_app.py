@@ -138,7 +138,7 @@ class GanttDashApp:
                         dcc.Graph(
                             id="gantt-graph",
                             figure=self.fig_builder.build(df),
-                            style={"height": "520px"},
+                            style={"width": "100%"},
                         ),
                     ],
                     style={"marginBottom": "16px"},

@@ -154,10 +154,13 @@ class GanttFigureBuilder:
         # Layout
         # -------------------------
         fig.update_yaxes(type="category", autorange="reversed")
-        fig.update_xaxes(type="date", tickformat="%Y-%m-%d\n%H:%M")
+        fig.update_xaxes(type="date",
+                         tickformat="%Y-%m-%d\n%H:%M",
+                         dtick=24*60*60*1000,
+                         )
         fig.update_layout(
             title=UI["title_gantt_full"],
-            height=max(520, 28 * max(len(df_chart), 1) + 240),
+            height=max(520, 28 * max(len(df_chart), 1) + 260),
             xaxis_title=UI["xaxis"],
             yaxis_title=UI["yaxis"],
             legend_title_text=UI["legend_category"],
